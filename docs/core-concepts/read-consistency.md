@@ -4,7 +4,7 @@ sidebar_position: 6
 
 # Read Consistency
 
-ven though serving queries(enforce) does not require Raft consensus (because the states is not changed). Because, without this check, queries on a node could return results that are out-of-date i.e. stale. This could happen for one, or both, of the following two reasons:
+Even though serving queries(enforce) does not require Raft consensus (because the states is not changed). Because, without this check, queries on a node could return results that are out-of-date i.e. stale. This could happen for one, or both, of the following two reasons:
 
 - The node, while still part of the cluster, has fallen behind the Leader in terms of updates to its underlying database.
 - The node is no longer part of the cluster, and has stopped receiving Raft log updates.
