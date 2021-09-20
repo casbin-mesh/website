@@ -16,9 +16,7 @@ In this guide, we will get Casbin Mesh running in a local docker environment wit
 
 ### Running a replica set
 
-docker-compsoe.yaml
-
-```yaml
+```yaml title="docker-compose.yaml"
 version: "3"
 services:
   node0:
