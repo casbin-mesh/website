@@ -15,6 +15,8 @@ slug: /
 
 ### Visiting the dashboard
 
+![](/img/preview.png)
+
 //TODO the url update later
 
 Vist the [Dashboard](https://dashboard.terminal.im)
