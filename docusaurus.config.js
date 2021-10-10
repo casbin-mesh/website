@@ -42,6 +42,10 @@ module.exports = {
       ],
     },
     footer: {
+      logo: {
+        src: 'https://www.datocms-assets.com/31049/1618983297-powered-by-vercel.svg',
+        href: 'https://vercel.com?utm_source=casbin-mesh&utm_campaign=oss',
+      },
       style: 'dark',
       copyright: `Copyright © ${new Date().getFullYear()} Casbin Mesh, Inc. Built with Docusaurus.`,
     },
