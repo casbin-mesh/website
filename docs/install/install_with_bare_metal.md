@@ -5,7 +5,7 @@ sidebar_position: 3
 # Install with bare metal
 
 
-```yaml title="stateSet.yaml"
+```yaml title="statefulset.yaml"
 apiVersion: v1
 kind: Service
 metadata:
