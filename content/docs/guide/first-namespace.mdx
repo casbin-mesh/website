@@ -1,0 +1,85 @@
+---
+title: Set up Namespace
+description: set up your first namespace in Casbin-mesh
+url: https://mesh.casbin.org/docs/getting-started
+---
+
+# Set up Namespace
+
+#### Create namespaces
+First, We create a new namespace, which can be done by performing an HTTP request on the `/create/namespace` on any Casbin-Mesh node.
+
+
+```bash
+curl --location --request GET 'http://localhost:4002/create/namespace' \
+     --header 'Content-Type: application/json' \
+     --data-raw '{
+       "ns": "test"
+    }'
+```
+
+#### Set up an RBAC model
+To setup an Casbin model for a specific namespace, executes following request on /set/model endpoint. Learn more about supported [Models](https://casbin.org/docs/en/supported-models).
+```bash
+curl  --location --request GET 'http://localhost:4002/set/model' \
+      --header 'Content-Type: application/json' \
+      --data-raw '{
+        "ns":"test",
+        "text":"[request_definition]\nr = sub, obj, act\n\n[policy_definition]\np = sub, obj, act\n\n[role_definition]\ng = _, _\n\n[policy_effect]\ne = some(where (p.eft == allow))\n\n[matchers]\nm = g(r.sub, p.sub) && r.obj == p.obj && r.act == p.act"
+      }'
+```
+
+#### List namespaces
+Now, let's list the namespaces which we created.
+```bash
+curl --location --request GET 'http://localhost:4002/list/namespaces'
+```
+we will get:
+```json
+["test"]
+```
+
+#### Add Polices
+Let's add policies for the test namespace. Learn more about [Polcies](https://github.com/casbin/casbin-mesh/blob/main)
+```bash
+curl  --location --request GET 'http://localhost:4002/add/policies' \
+      --header 'Content-Type: application/json' \
+      --data-raw '{
+        "ns":"test",
+        "sec":"p",
+        "ptype":"p",
+        "rules":[["alice","data1","read"],["bob","data2","write"]]
+      }'
+```
+We will receive the sets of effected rules from the response:
+```json
+{
+  "effected_rules": [
+    ["alice", "data1", "read"],
+    ["bob", "data2", "write"]
+  ]
+}
+```
+
+#### Enforce
+Now, Let's figure out whether Alice can read data1.
+
+```bash
+curl  --location --request GET 'http://localhost:4002/enforce' \
+      --header 'Content-Type: application/json' \
+      --data-raw '{
+        "ns":"test",
+        "params":["alice","data1","read"]
+      }'
+```
+we will get the answer is yes:
+```bash
+{
+  "ok": true
+}
+```
+
+
+
+
+

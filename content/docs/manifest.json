@@ -1,0 +1,32 @@
+{
+    "routes": [
+        {
+            "title": "Documentation",
+            "keywords": "docs, doc, documentation, getting started,casbin mesh,casbin , Casbin-Mesh",
+            "subtitle": "For an advanced search please use the search input",
+            "icon": "note",
+            "section": "Scope",
+            "heading": true,
+            "routes": [
+                {
+                    "title": "Guide",
+                    "open": true,
+                    "keywords": "guide, getting started, start",
+                    "icon": "/paper.svg",
+                    "routes": [
+                        {
+                            "title": "Getting Started",
+                            "keywords": "getting started",
+                            "path": "/docs/guide/getting-started.mdx"
+                        },
+                        {
+                            "title": "Set up namespace",
+                            "keywords": "casbin mesh, namespace",
+                            "path": "/docs/guide/first-namespace.mdx"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

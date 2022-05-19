@@ -1,0 +1,11 @@
+{
+    "name": "Casbin Mesh",
+    "short_name": "Casbin Mesh",
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "orientation": "portrait",
+    "scope": "/",
+    "start_url": "/",
+    "icons": []
+}

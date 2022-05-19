@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://mesh.casbin.org
+
+# Sitemaps
+Sitemap: https://mesh.casbin.org/sitemap.xml
