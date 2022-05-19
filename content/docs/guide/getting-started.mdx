@@ -1,0 +1,97 @@
+---
+title: Getting started
+description: Get started with Casbin Mesh in the official documentation, and learn more about all our features!
+url: https://mesh.casbin.org/docs/getting-started
+---
+
+# Getting started
+
+Get Casbin-Mesh up and running in less than 5 minutes!
+
+<Spacer y={2} />
+
+## Standalone
+
+### Docker
+You can start a single Casbin-Mesh node like:
+```bash
+docker pull ghcr.io/casbin/casbin-mesh:latest
+
+docker run -it -p 4002:4002 --name=casbin_mesh_single ghcr.io/casbin/casbin-mesh:latest
+```
+
+### Binary
+Download the compressed archive file for your platform from [Releases](https://github.com/casbin/casbin-mesh/releases).
+```bash
+casmesh -node-id node0 ~/node1_data
+```
+
+<Spacer y={2} />
+
+## Cluster
+The first benefit of the cluster is that it is able be fault-tolerant several nodes crash, which will not affect your business.
+
+### Docker Compose
+_docker-compose.yaml_
+```yaml
+version: "3"
+services:
+  node0:
+    image: ghcr.io/casbin/casbin-mesh:latest
+    command: >
+      -node-id node0
+      -raft-address 0.0.0.0:4002
+      -raft-advertise-address node0:4002
+      -endpoint-no-verify
+    ports:
+      - "4002:4002"
+    volumes:
+      - ./store/casbin/node1:/casmesh/data
+  node1:
+    image: ghcr.io/casbin/casbin-mesh:latest
+    command: >
+      -node-id node1
+      -raft-address 0.0.0.0:4002
+      -raft-advertise-address node1:4002
+      -join http://node0:4002
+      -endpoint-no-verify
+    ports:
+      - "4004:4002"
+    volumes:
+      - ./store/casbin/node2:/casmesh/data
+    depends_on:
+      - node0
+  node2:
+    image: ghcr.io/casbin/casbin-mesh:latest
+    command: >
+      -node-id node2
+      -raft-address 0.0.0.0:4002
+      -raft-advertise-address node2:4002
+      -join http://node0:4002
+      -endpoint-no-verify
+    ports:
+      - "4006:4002"
+    volumes:
+      - ./store/casbin/node3:/casmesh/data
+    depends_on:
+      - node0
+```
+
+```bash
+docker-compose up
+```
+
+### Binary
+```bash
+casmesh -node-id -raft-address localhost:4002 -raft-advertise-address localhost:4002 node0 ~/node1_data
+
+casmesh -node-id -raft-address localhost:4004 -raft-advertise-address localhost:4004 node1 -join http://localhost:4002  ~/node2_data
+
+casmesh -node-id -raft-address localhost:4006 -raft-advertise-address localhost:4006 node2 -join http://localhost:4002  ~/node3_data
+```
+
+<Spacer y={2} />
+
+## What's Next?
+Learn about more ways to configure and use Casbin-Mesh from the following pages:
+- Set up your [first namespace](./first-namespace)
